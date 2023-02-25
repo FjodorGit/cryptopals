@@ -28,5 +28,5 @@ fn main() {
         &vec![0; 16],
         &"YELLOW SUBMARINE".as_bytes().to_vec(),
     );
-    print!("{:#?}", result);
+    print!("{}", result);
 }
