@@ -1,9 +1,10 @@
-pub fn add_padding_to(bytes: &mut Vec<u8>, length: usize) -> &Vec<u8> {
-    let missing_len = (length - bytes.len()) as u8;
+use std::cmp::{max, min};
+
+pub fn add_padding_to(bytes: &mut Vec<u8>, length: usize) {
+    let missing_len = (max(bytes.len(), length) - min(bytes.len(), length)) as u8;
     for _ in 0..missing_len {
         bytes.push(missing_len);
     }
-    bytes
 }
 
 #[cfg(test)]
@@ -13,8 +14,8 @@ mod tests {
     #[test]
     fn padding_test() {
         let mut input = "YELLOW SUBMARINE".as_bytes().to_vec();
-        let result = String::from_utf8(add_padding_to(&mut input, 20).to_vec())
-            .expect("Error converting to string");
+        add_padding_to(&mut input, 20);
+        let result = String::from_utf8(input).expect("Error converting to string");
         let expected = "YELLOW SUBMARINE\x04\x04\x04\x04";
         assert_eq!(result, expected)
     }
