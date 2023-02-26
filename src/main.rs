@@ -9,7 +9,7 @@ use crate::first_set::find_aes_encoding::find_most_repetetive_line;
 use crate::first_set::find_aes_encoding::LineScore;
 use crate::first_set::{base64::base64_to_bytes, decrypt_aes_128::decrypt_message};
 use crate::second_set::decrypt_cbc_mode;
-use crate::second_set::decrypt_cbc_mode::decrypt_in_cbc_mode;
+use crate::second_set::decrypt_cbc_mode::decrypt_cbc_mode;
 
 mod first_set;
 mod second_set;
@@ -23,7 +23,7 @@ fn main() {
     //let bytes = hex::decode(&fs::read_to_string(path).expect("Error reading text from file"))
     //   .expect("Error decoding hex");
     let content = fs::read_to_string(path).expect("Error reading file");
-    let result = decrypt_in_cbc_mode(
+    let result = decrypt_cbc_mode(
         &base64_to_bytes(&content),
         &vec![0; 16],
         &"YELLOW SUBMARINE".as_bytes().to_vec(),
